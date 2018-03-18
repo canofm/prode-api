@@ -1,0 +1,109 @@
+#%RAML 0.8
+title: prode-api
+version: 0.1
+mediaType: application/json
+baseUri: http://0.0.0.0:3000/api/v1
+
+/status/ping:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "status": "ok"
+              }
+
+/auth:
+  /login:
+    post:
+      body:
+        application/json:
+          example: |
+            {
+              "username": "username",
+              "password": "password"
+            }
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                {
+                  "token": "jwt"
+                }
+
+/equipos:
+  get:
+  post:
+
+  /{equipoId}:
+    get:
+    put:
+    delete:
+
+/usuarios:
+  get:
+  post:
+
+  /{usuarioId}:
+    get:
+    put:
+    delete:
+
+    /ligas:
+      get:
+      post:
+
+      /{ligaId}:
+        delete:
+
+    /apuestas:
+      get:
+      post:
+
+      /{apuestaId}:
+        get:
+        put:
+        delete:
+
+/ligas:
+  get:
+  post:
+
+  /{ligaId}:
+    get:
+    put:
+    delete:
+
+    /usuarios:
+      get:
+      delete:
+
+/torneos:
+  get:
+  post:
+
+  /{torneoId}:
+    get:
+    put:
+    delete:
+
+    /etapas:
+      get:
+      post:
+
+      /{etapaId}:
+        get:
+        put:
+        delete:
+
+        /partidos:
+          get:
+          post:
+
+          /{partidoId}:
+            get:
+            put:
+            delete:
