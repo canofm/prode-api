@@ -34,76 +34,75 @@ baseUri: http://0.0.0.0:3000/api/v1
                   "token": "jwt"
                 }
 
-/equipos:
+/teams:
   get:
   post:
 
-  /{equipoId}:
+  /{teamId}:
     get:
     put:
     delete:
 
-/usuarios:
+/users:
   get:
   post:
 
-  /{usuarioId}:
+  /{userId}:
     get:
     put:
     delete:
 
-    /ligas:
+    /leagues:
       get:
-      post:
 
-      /{ligaId}:
+      /{leagueId}:
+        post:
         delete:
 
-    /apuestas:
+    /bets:
       get:
       post:
 
-      /{apuestaId}:
+      /{betId}:
         get:
         put:
         delete:
 
-/ligas:
+/leagues:
   get:
   post:
 
-  /{ligaId}:
+  /{leagueId}:
     get:
     put:
     delete:
 
-    /usuarios:
+    /users:
       get:
-      delete:
 
-/torneos:
+/tournaments:
   get:
   post:
 
-  /{torneoId}:
+  /{tournamentId}:
     get:
     put:
     delete:
 
-    /etapas:
+    /stages:
       get:
       post:
 
-      /{etapaId}:
+      /{stageId}:
         get:
         put:
         delete:
 
-        /partidos:
+        /match:
           get:
           post:
 
-          /{partidoId}:
+          /{matchId}:
             get:
             put:
             delete:

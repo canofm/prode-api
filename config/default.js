@@ -16,6 +16,16 @@ module.exports = {
       jsonMaxSize: '400kb'
     }
   },
+  database: {
+    client: 'pg',
+    connection: {
+      host : 'localhost',
+      port: 5432,
+      user : 'postgres',
+      password : 'postgres',
+      database : 'prode'
+    }
+  },
   express: {
     host: '0.0.0.0',
     port: _.get(process.env, 'PORT', 8080)

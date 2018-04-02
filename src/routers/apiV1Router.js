@@ -4,14 +4,14 @@ const ospreyMiddleware = require('osprey-middleware');
 module.exports = function apiV1Router(
   config,
 
-  apuestasController,
+  betsController,
   authController,
-  equiposController,
-  etapasController,
-  ligasController,
-  partidosController,
-  torneosController,
-  usuariosController,
+  teamsController,
+  stagesController,
+  leaguesController,
+  matchesController,
+  tournamentsController,
+  usersController,
 
   statusController
 ) {
@@ -42,54 +42,53 @@ module.exports = function apiV1Router(
     .post('/auth/login', authController.login)
 
     // TODO paginate pls
-    .get(   '/equipos',           equiposController.obtenerTodos)
-    .post(  '/equipos',           equiposController.crear)
-    .get(   '/equipos/:equipoId', equiposController.obtenerUno)
-    .put(   '/equipos/:equipoId', equiposController.editar)
-    .delete('/equipos/:equipoId', equiposController.eliminar)
+    .get(   '/teams',         teamsController.getAll)
+    .post(  '/teams',         teamsController.create)
+    .get(   '/teams/:teamId', teamsController.get)
+    .put(   '/teams/:teamId', teamsController.edit)
+    .delete('/teams/:teamId', teamsController.del)
 
-    .get(   '/usuarios',            usuariosController.obtenerTodos)
-    .post(  '/usuarios',            usuariosController.crear)
-    .get(   '/usuarios/:usuarioId', usuariosController.obtenerUno)
-    .put(   '/usuarios/:usuarioId', usuariosController.editar)
-    .delete('/usuarios/:usuarioId', usuariosController.eliminar)
+    .get(   '/users',         usersController.getAll)
+    .post(  '/users',         usersController.create)
+    .get(   '/users/:userId', usersController.get)
+    .put(   '/users/:userId', usersController.edit)
+    .delete('/users/:userId', usersController.del)
 
-    .get(   '/usuarios/:usuarioId/ligas',         ligasController.obtenerTodos)
-    .post(  '/usuarios/:usuarioId/ligas',         ligasController.crear)
-    .delete('/usuarios/:usuarioId/ligas/:ligaId', ligasController.eliminar)
+    .get(   '/users/:userId/leagues',           leaguesController.getLeaguesForUser)
+    .post(  '/users/:userId/leagues/:leagueId', leaguesController.addUserToLeague)
+    .delete('/users/:userId/leagues/:leagueId', leaguesController.removeUserFromLeague)
 
-    .get(   '/usuarios/:usuarioId/apuestas',            apuestasController.obtenerTodos)
-    .post(  '/usuarios/:usuarioId/apuestas',            apuestasController.crear)
-    .get(   '/usuarios/:usuarioId/apuestas/:apuestaId', apuestasController.obtenerUno)
-    .put(   '/usuarios/:usuarioId/apuestas/:apuestaId', apuestasController.editar)
-    .delete('/usuarios/:usuarioId/apuestas/:apuestaId', apuestasController.eliminar)
+    .get(   '/users/:userId/bets',        betsController.getAll)
+    .post(  '/users/:userId/bets',        betsController.create)
+    .get(   '/users/:userId/bets/:betId', betsController.get)
+    .put(   '/users/:userId/bets/:betId', betsController.edit)
+    .delete('/users/:userId/bets/:betId', betsController.del)
 
-    .get(   '/ligas',         ligasController.obtenerTodos)
-    .post(  '/ligas',         ligasController.crear)
-    .get(   '/ligas/:ligaId', ligasController.obtenerUno)
-    .put(   '/ligas/:ligaId', ligasController.editar)
-    .delete('/ligas/:ligaId', ligasController.eliminar)
+    .get(   '/leagues',           leaguesController.getAll)
+    .post(  '/leagues',           leaguesController.create)
+    .get(   '/leagues/:leagueId', leaguesController.get)
+    .put(   '/leagues/:leagueId', leaguesController.edit)
+    .delete('/leagues/:leagueId', leaguesController.del)
 
-    .get(   '/ligas/:ligaId/usuarios', usuariosController.obtenerTodosPorLiga)
-    .delete('/ligas/:ligaId/usuarios', usuariosController.obtenerUnoByBranch)
+    .get(   '/leagues/:leagueId/users', usersController.getUsersInLeague)
 
-    .get(   '/torneos',           torneosController.obtenerTodos)
-    .post(  '/torneos',           torneosController.crear)
-    .get(   '/torneos/:torneoId', torneosController.obtenerUno)
-    .put(   '/torneos/:torneoId', torneosController.editar)
-    .delete('/torneos/:torneoId', torneosController.eliminar)
+    .get(   '/tournaments',               tournamentsController.getAll)
+    .post(  '/tournaments',               tournamentsController.create)
+    .get(   '/tournaments/:tournamentId', tournamentsController.get)
+    .put(   '/tournaments/:tournamentId', tournamentsController.edit)
+    .delete('/tournaments/:tournamentId', tournamentsController.del)
 
-    .get(   '/torneos/:torneoId/etapas',          etapasController.obtenerTodos)
-    .post(  '/torneos/:torneoId/etapas',          etapasController.crear)
-    .get(   '/torneos/:torneoId/etapas/:etapaId', etapasController.obtenerUno)
-    .put(   '/torneos/:torneoId/etapas/:etapaId', etapasController.editar)
-    .delete('/torneos/:torneoId/etapas/:etapaId', etapasController.eliminar)
+    .get(   '/tournaments/:tournamentId/stages',          stagesController.getAll)
+    .post(  '/tournaments/:tournamentId/stages',          stagesController.create)
+    .get(   '/tournaments/:tournamentId/stages/:stageId', stagesController.get)
+    .put(   '/tournaments/:tournamentId/stages/:stageId', stagesController.edit)
+    .delete('/tournaments/:tournamentId/stages/:stageId', stagesController.del)
 
-    .get(   '/torneos/:torneoId/etapas/:etapaId/partido',            partidosController.obtenerTodos)
-    .post(  '/torneos/:torneoId/etapas/:etapaId/partido',            partidosController.crear)
-    .get(   '/torneos/:torneoId/etapas/:etapaId/partido/:partidoId', partidosController.obtenerUno)
-    .put(   '/torneos/:torneoId/etapas/:etapaId/partido/:partidoId', partidosController.editar)
-    .delete('/torneos/:torneoId/etapas/:etapaId/partido/:partidoId', partidosController.eliminar)
+    .get(   '/tournaments/:tournamentId/stages/:stageId/match',          matchesController.getAll)
+    .post(  '/tournaments/:tournamentId/stages/:stageId/match',          matchesController.create)
+    .get(   '/tournaments/:tournamentId/stages/:stageId/match/:matchId', matchesController.get)
+    .put(   '/tournaments/:tournamentId/stages/:stageId/match/:matchId', matchesController.edit)
+    .delete('/tournaments/:tournamentId/stages/:stageId/match/:matchId', matchesController.del)
   );
 };
 

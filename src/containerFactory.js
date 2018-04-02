@@ -7,14 +7,20 @@ function createContainer() {
     'app.js',
     'config.js',
     'controllers',
+    'db',
     'logger.js',
     'middlewares',
+    'repositories',
+    'repositories/mappers',
     'routers',
     'services',
     'utils'
   ];
 
   entries.forEach((entry) => container.load(path.join(__dirname, entry)));
+
+  container.register('container', container);
+
   return container;
 }
 

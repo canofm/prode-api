@@ -1,12 +1,11 @@
 const expressify = require('expressify');
 
-module.exports = function usersController(
-  usersService
+module.exports = function tournamentsController(
+  tournamentsService
 ) {
   return expressify({
     get,
     getAll,
-    getUsersInLeague,
     create,
     edit,
     del
@@ -15,32 +14,27 @@ module.exports = function usersController(
   // ---
 
   function get(req, res) {
-    return usersService.get(req.params.userId)
+    return tournamentsService.get(req.params.tournamentId)
       .then(response => res.json(response));
   }
 
   function getAll(req, res) {
-    return usersService.getAll()
-      .then(response => res.json(response));
-  }
-
-  function getUsersInLeague(req, res) {
-    return usersService.getUsersInLeague(req.params.leagueId)
+    return tournamentsService.getAll()
       .then(response => res.json(response));
   }
 
   function create(req, res) {
-    return usersService.create(req.body)
+    return tournamentsService.create(req.body)
       .then(id => res.status(201).send(id));
   }
 
   function edit(req, res) {
-    return usersService.edit(req.params.userId, req.body)
+    return tournamentsService.edit(req.params.tournamentId, req.body)
       .then(response => res.json(response));
   }
 
   function del(req, res) {
-    return usersService.del(req.params.userId)
+    return tournamentsService.del(req.params.tournamentId)
       .then(() => res.status(204).send());
   }
 };

@@ -1,9 +1,14 @@
 const bluebird = require('bluebird');
 
-module.exports = function usersService() {
+module.exports = function usersService(
+  inscriptionsService,
+  usersRepository
+) {
   return {
     get,
     getAll,
+    getByIds,
+    getUsersInLeague,
     create,
     edit,
     del
@@ -12,34 +17,30 @@ module.exports = function usersService() {
   // ---
 
   function get(userId) {
-    return bluebird.resolve({
-      id:   userId,
-      name: 'cucho'
-    });
+    return usersRepository.get(userId);
   }
 
   function getAll() {
-    return bluebird.resolve([{
-      id:   1,
-      name: 'cucho'
-    }, {
-      id:   2,
-      name: 'gatito'
-    }]);
+    return usersRepository.getAll();
   }
 
-  function create() {
-    return bluebird.resolve(9);
+  function getByIds(ids) {
+    return usersRepository.getByIds(ids || []);
   }
 
-  function edit(userId) {
-    return bluebird.resolve({
-      id:   userId,
-      name: 'qq'
-    });
+  function getUsersInLeague(leagueId) {
+    return inscriptionsService.getUsersInLeague(leagueId);
   }
 
-  function del() {
-    return bluebird.resolve();
+  function create(user) {
+    return usersRepository.create(user);
+  }
+
+  function edit(user) {
+    return usersRepository.edit(userId, user);
+  }
+
+  function del(userId) {
+    return usersRepository.del(userId);
   }
 };
